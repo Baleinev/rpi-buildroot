@@ -6,7 +6,7 @@
 
 
 FREEIMAGE_VERSION = 3170
-FREEIMAGE_SITE = http://downloads.sourceforge.net/project/freeimage/Source%20Distribution/3.17.0/
+FREEIMAGE_SITE = http://downloads.sourceforge.net/project/freeimage/Source%20Distribution/3.17.0
 FREEIMAGE_SOURCE = FreeImage$(FREEIMAGE_VERSION).zip
 FREEIMAGE_INSTALL_STAGING = YES
 FREEIMAGE_LICENSE = BSD-2c
