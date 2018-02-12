@@ -1,4 +1,7 @@
-Add support for static-only build
+From 2140db697c7f1da2a0a3f7bbcb14c1a0dade84e5 Mon Sep 17 00:00:00 2001
+From: Adam Duskett <Adamduskett@outlook.com>
+Date: Mon, 9 Oct 2017 16:28:12 -0400
+Subject: [PATCH] Add support for static-only build
 
 Instead of unconditionally building shared libraries, this patch
 improves the libsepol build system with a "STATIC" variable, which
@@ -7,14 +10,18 @@ libraries. It allows to support cases where the target architecture
 does not have support for shared libraries.
 
 Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Signed-off-by: Adam Duskett <Adamduskett@outlook.com>
+---
+ src/Makefile | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-Index: b/src/Makefile
-===================================================================
+diff --git a/src/Makefile b/src/Makefile
+index 819d261..040921d 100644
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -17,7 +17,12 @@
- CFLAGS ?= -Werror -Wall -W -Wundef -Wshadow -Wmissing-noreturn -Wmissing-format-attribute
- override CFLAGS += -I. -I../include -D_GNU_SOURCE
+@@ -40,7 +40,12 @@ LDFLAGS += -undefined dynamic_lookup
+ LN=gln
+ endif
  
 -all: $(LIBA) $(LIBSO) $(LIBPC)
 +ALL_TARGETS = $(LIBA) $(LIBPC)
@@ -24,9 +31,9 @@ Index: b/src/Makefile
 +
 +all: $(ALL_TARGETS)
  
+ 
  $(LIBA):  $(OBJS)
- 	$(AR) rcs $@ $^
-@@ -39,11 +44,13 @@
+@@ -82,11 +87,13 @@ endif
  install: all
  	test -d $(LIBDIR) || install -m 755 -d $(LIBDIR)
  	install -m 644 $(LIBA) $(LIBDIR)
@@ -37,8 +44,11 @@ Index: b/src/Makefile
 +ifeq ($(STATIC),)
 +	test -d $(SHLIBDIR) || install -m 755 -d $(SHLIBDIR)
 +	install -m 755 $(LIBSO) $(SHLIBDIR)
- 	cd $(LIBDIR) && ln -sf ../../`basename $(SHLIBDIR)`/$(LIBSO) $(TARGET)
+ 	$(LN) -sf --relative $(SHLIBDIR)/$(LIBSO) $(LIBDIR)/$(TARGET)
 +endif
  
  relabel:
  	/sbin/restorecon $(SHLIBDIR)/$(LIBSO)
+-- 
+2.13.6
+

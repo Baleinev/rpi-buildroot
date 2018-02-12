@@ -1,2 +1,2 @@
-# Locally computed:
-sha256  ad504e6697b964787f51caad6d8a916caa367f241ac602545548488195216a80  ltp-full-20150420.tar.xz
+# From: https://github.com/linux-test-project/ltp/releases/download/20170929/ltp-full-20170929.tar.xz.sha1
+sha1 a170db3bc7203c9a998a277a369e7020dc61a382  ltp-full-20170929.tar.xz

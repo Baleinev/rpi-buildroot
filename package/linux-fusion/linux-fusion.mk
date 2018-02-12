@@ -9,14 +9,8 @@ LINUX_FUSION_SITE = http://directfb.org/downloads/Core/linux-fusion
 LINUX_FUSION_SOURCE = linux-fusion-$(LINUX_FUSION_VERSION).tar.xz
 LINUX_FUSION_INSTALL_STAGING = YES
 LINUX_FUSION_DEPENDENCIES = linux
-LINUX_FUSION_LICENSE = GPLv2+
+LINUX_FUSION_LICENSE = GPL-2.0+
 LINUX_FUSION_LICENSE_FILES = debian/copyright
-
-# We're building a kernel module without using the kernel-module infra,
-# so we need to tell we want module support in the kernel
-ifeq ($(BR2_PACKAGE_LINUX_FUSION),y)
-LINUX_NEEDS_MODULES = y
-endif
 
 LINUX_FUSION_ETC_DIR = $(TARGET_DIR)/etc/udev/rules.d
 
