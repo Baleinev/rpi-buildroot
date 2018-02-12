@@ -7,7 +7,7 @@
 NFS_UTILS_VERSION = 1.3.3
 NFS_UTILS_SOURCE = nfs-utils-$(NFS_UTILS_VERSION).tar.xz
 NFS_UTILS_SITE = https://www.kernel.org/pub/linux/utils/nfs-utils/$(NFS_UTILS_VERSION)
-NFS_UTILS_LICENSE = GPLv2+
+NFS_UTILS_LICENSE = GPL-2.0+
 NFS_UTILS_LICENSE_FILES = COPYING
 NFS_UTILS_AUTORECONF = YES
 NFS_UTILS_DEPENDENCIES = host-pkgconf
@@ -28,6 +28,13 @@ NFS_UTILS_TARGETS_$(BR2_PACKAGE_NFS_UTILS_RPCDEBUG) += usr/sbin/rpcdebug
 NFS_UTILS_TARGETS_$(BR2_PACKAGE_NFS_UTILS_RPC_LOCKD) += usr/sbin/rpc.lockd
 NFS_UTILS_TARGETS_$(BR2_PACKAGE_NFS_UTILS_RPC_RQUOTAD) += usr/sbin/rpc.rquotad
 
+ifeq ($(BR2_PACKAGE_LIBCAP),y)
+NFS_UTILS_CONF_OPTS += --enable-caps
+NFS_UTILS_DEPENDENCIES += libcap
+else
+NFS_UTILS_CONF_OPTS += --disable-caps
+endif
+
 ifeq ($(BR2_PACKAGE_LIBTIRPC),y)
 NFS_UTILS_CONF_OPTS += --enable-tirpc
 NFS_UTILS_DEPENDENCIES += libtirpc
@@ -38,6 +45,8 @@ endif
 define NFS_UTILS_INSTALL_FIXUP
 	rm -f $(NFS_UTILS_TARGETS_)
 	touch $(TARGET_DIR)/etc/exports
+	$(INSTALL) -D -m 644 \
+		$(@D)/utils/mount/nfsmount.conf $(TARGET_DIR)/etc/nfsmount.conf
 endef
 NFS_UTILS_POST_INSTALL_TARGET_HOOKS += NFS_UTILS_INSTALL_FIXUP
 

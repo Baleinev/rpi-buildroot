@@ -1,2 +1,2 @@
-# From ftp://ftp.openbsd.org/pub/OpenBSD/OpenNTPD/SHA256
-sha256	a993d95976e375acc0ab1a677fd268f55024477835633c8ae404895046bccb23	openntpd-5.7p4.tar.gz
+# Locally computed
+sha256 5808a4137b008a4db20907e1a482f474734b120f254e3c5feb90db15e0820fb2  openntpd-6.2p2.tar.gz

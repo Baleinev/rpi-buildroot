@@ -1,2 +1,2 @@
-# Locally calculated after checking pgp signature
-sha256	a8620cc6b79beea91de8487f8fd2400a2e1ffdef109917021435cb31417cbb99 	openvpn-2.3.8.tar.xz
+# Locally calculated after checking signature
+sha256 96cd1b8fe1e8cb2920f07c3fd3985faea756e16fdeebd11d3e146d5bd2b04a80  openvpn-2.4.4.tar.xz
